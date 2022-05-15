@@ -1,0 +1,35 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Sun May 15 05:34:36 2022
+
+@author: sanyo
+"""
+
+import pandas as pd
+#%%
+df=pd.read_csv("studp.csv")
+df.head()
+#%%
+df.describe()
+#%%
+#for checking dimentions
+df.shape
+
+#%%
+#check null values
+print("Reading score null val")
+df['reading score'].isnull().sum()
+
+#%%
+print("writing score")
+df['writing score'].isnull().sum()
+#%%
+df.fillna(0)
+#%%
+#to check type of variable
+df.dtypes
+#%%
+#Categorial into quantitative
+df['gender'].dropna()
+df['gender'].replace(['female','male'],[0,1],inplace=True)
+df['gender']
