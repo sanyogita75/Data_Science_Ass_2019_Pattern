@@ -29,7 +29,18 @@ df.fillna(0)
 #to check type of variable
 df.dtypes
 #%%
+#normalization
+df['reading score']=df['reading score']/df['reading score'].max()
+
+df['reading score']=np.log10(df['reading score'])
+#%%
+
+#type conversion
+df['math score']=df['math score'].astype("float")
 #Categorial into quantitative
 df['gender'].dropna()
-df['gender'].replace(['female','male'],[0,1],inplace=True)
+#df['gender'].replace(['female','male'],[0,1],inplace=True)
+cat=pd.get_dummies(df['gender'])
+print(cat)
 df['gender']
+#%%
