@@ -1,0 +1,41 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Sun May 15 17:32:27 2022
+ASS10
+@author: sanyo
+"""
+
+import pandas as pd
+df=pd.read_csv('iris.csv')
+df.head()
+#%%
+#list down features
+df.columns
+#%%
+#list fetures and type
+df.dtypes
+#%%
+#histogram of each feature
+import seaborn as sns
+sns.displot(df['SepalLengthCm'])
+#%%
+sns.displot(df['SepalWidthCm'])
+
+#%%
+sns.displot(df['PetalLengthCm'])
+
+#%%
+sns.displot(df['PetalWidthCm'])
+
+#%%
+sns.displot(df['Species'])
+
+
+#%%
+#boxplot for each feature
+sns.boxenplot(df['SepalLengthCm'])
+#%%
+sns.boxplot(df['SepalWidthCm'])
+#it has outerlierr
+#%%
+sns.boxplot(df['PetalLengthCm'])
