@@ -1,0 +1,42 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Mon May 16 13:15:48 2022
+
+@author: sanyo
+"""
+
+import pandas as pd
+df=pd.read_csv("train.csv")
+#%%
+df.head()
+#%%
+df.columns
+#%%
+import seaborn as sns
+sns.displot(x=df['Age'])
+#%%
+sns.boxplot(df['Age'])
+#%%
+sns.boxplot(df['Pclass'])
+#%%
+sns.displot(df['Sex'])
+#%%
+sns.displot(df['Fare'])
+#%%
+sns.countplot(x=df['Age'])
+#%%
+sns.countplot(x=df['Sex'])
+#%%
+import matplotlib.pyplot as plt
+fig,axs=plt.subplots(figsize=(7,7))
+sns.barplot(x=df['Survived'].value_counts().index(),y=df['Survived'].value_counts(),ax=axs)
+#%%
+sns.barplot(x=df['Age'],y=df['Survived'])
+#%% #imp
+sns.barplot(x=df['Sex'],y=df['Survived'])
+#%%
+sns.boxenplot(df['Fare'])
+#%%
+sns.distplot[df['Fare']]
+#%%
+sns.barplot(x='Sex',y='Age',data=df,hue='Survived')
