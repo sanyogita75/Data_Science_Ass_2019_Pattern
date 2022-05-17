@@ -1,0 +1,62 @@
+# -*- coding: utf-8 -*-
+"""Created on Sun May 15 08:08:41 2022
+@author: sanyo  ASS4
+"""'''create linear regression model to predict home price'''
+import pandas as pd
+import numpy as np
+column=['CRIM','ZN','INDUS','CHAS','NOX','RM','AGE','DIS','RAD','TAX','PTRATIO','B','LSTAT','MEDV']
+df=pd.read_csv("housing.csv",names=column,delimiter=r"\s+")
+
+#%%
+df.head()
+#%%
+df.columns
+#%%
+df.describe()
+#%%
+df.isnull().sum()
+#df.fillna(0)
+#%%
+import seaborn as sns
+import matplotlib.pyplot as plt
+fig,axs=plt.subplots(ncols=7,nrows=2,figsize=(20,10))
+axs=axs.flatten()
+colidx=0
+for k in column:
+    sns.boxplot(df[k],ax=axs[colidx])
+    colidx+=1
+#lets remove outerlier
+#%%
+sns.boxplot(df['ZN'])
+#%%
+sns.scatterplot(x=df['ZN'], y=df['ZN'])
+#%%
+df.shape
+#%%
+df=df[~(df['MEDV']>=50.0)]
+df=df[~(df['CRIM']>=25.0)]
+#%%
+df.shape
+#%% correlation
+plt.figure(figsize=(20,10))
+sns.heatmap(df.corr(),annot=True)
+#TAX RAD ARE heighly corelated
+#col LSTAT ,RM   having corellation above 0.5 with mendev
+X=pd.DataFrame((np.c_[df['LSTAT'],df['RM']]))
+Y=df[['MEDV']]
+from sklearn.model_selection import train_test_split 
+X_train,X_test,Y_train,Y_test=train_test_split(X,Y,test_size=1/3)
+#%%
+from sklearn.linear_model import LinearRegression
+lmodel=LinearRegression()
+lmodel.fit(X_train,Y_train)
+#%%
+y_train_pred=lmodel.predict(X_train)
+print(y_train_pred)
+
+
+#%%performance check
+from sklearn.metrics import mean_squared_error
+rmse=(np.sqrt(mean_squared_error(Y_train, y_train_pred)))
+rmse
+#%%
